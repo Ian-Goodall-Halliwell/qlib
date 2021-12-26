@@ -44,6 +44,9 @@ def _exe_task(task_config: dict):
     # reweighter: Reweighter = task_config.get("reweighter", None)
     # model training
     # auto_filter_kwargs(model.fit)(dataset, reweighter=reweighter)
+    print('aaaaaaaaaaaaaaaaa')
+    print(model)
+    print(dataset)
     model.fit(dataset)
     R.save_objects(**{"params.pkl": model})
     # this dataset is saved for online inference. So the concrete data should not be dumped
@@ -161,8 +164,10 @@ def task_train(task_config: dict, experiment_name: str, recorder_name: str = Non
     ----------
     Recorder: The instance of the recorder
     """
+    print('oknowhere')
     with R.start(experiment_name=experiment_name, recorder_name=recorder_name):
         _log_task_info(task_config)
+        print(task_config)
         _exe_task(task_config)
         return R.get_recorder()
 

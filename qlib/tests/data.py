@@ -111,7 +111,7 @@ class GetData:
         target_dir="~/.qlib/qlib_data/cn_data",
         version=None,
         interval="1d",
-        region="cn",
+        region="cr",
         delete_old=True,
         exists_skip=False,
     ):

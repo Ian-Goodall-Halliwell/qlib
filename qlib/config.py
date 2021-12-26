@@ -72,7 +72,7 @@ class Config:
 # REGION CONST
 REG_CN = "cn"
 REG_US = "us"
-
+REG_CR = 'cr'
 # pickle.dump protocol version: https://docs.python.org/3/library/pickle.html#data-stream-format
 PROTOCOL_VERSION = 4
 
@@ -225,7 +225,7 @@ MODE_CONF = {
         # serversS(such as PAI) [auto_mount:True]
         "timeout": 100,
         "logging_level": logging.INFO,
-        "region": REG_CN,
+        "region": REG_CR,
         # custom operator
         # each element of custom_ops should be Type[ExpressionOps] or dict
         # if element of custom_ops is Type[ExpressionOps], it represents the custom operator class
@@ -235,7 +235,7 @@ MODE_CONF = {
 }
 
 HIGH_FREQ_CONFIG = {
-    "provider_uri": "~/.qlib/qlib_data/yahoo_cn_1min",
+    "provider_uri": "C:/Users/gooda/Documents/GitHub/qlib/normdata",
     "dataset_cache": None,
     "expression_cache": "DiskExpressionCache",
     "region": REG_CN,
@@ -249,6 +249,11 @@ _default_region_config = {
     },
     REG_US: {
         "trade_unit": 1,
+        "limit_threshold": None,
+        "deal_price": "close",
+    },
+    REG_CR: {
+        "trade_unit": 0.000001,
         "limit_threshold": None,
         "deal_price": "close",
     },

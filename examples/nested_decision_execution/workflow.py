@@ -110,13 +110,13 @@ from qlib.backtest import collect_data
 
 
 class NestedDecisionExecutionWorkflow:
-    market = "csi300"
-    benchmark = "SH000300"
+    market = "all"
+    benchmark = "EOSBUSD"
     data_handler_config = {
-        "start_time": "2008-01-01",
-        "end_time": "2021-05-31",
-        "fit_start_time": "2008-01-01",
-        "fit_end_time": "2014-12-31",
+        "start_time": "2019-12-21 00:00",
+        "end_time": "2021-12-19 17:40",
+        "fit_start_time": "2019-12-21 00:00",
+        "fit_end_time": "2020-12-21 00:00",
         "instruments": market,
     }
 
@@ -146,9 +146,9 @@ class NestedDecisionExecutionWorkflow:
                     "kwargs": data_handler_config,
                 },
                 "segments": {
-                    "train": ("2007-01-01", "2014-12-31"),
-                    "valid": ("2015-01-01", "2016-12-31"),
-                    "test": ("2020-01-01", "2021-05-31"),
+                    "train": ("2019-12-21 00:00", "2020-12-21 00:00"),
+                    "valid": ("2020-12-21 00:00", "2021-06-21 00:00"),
+                    "test": ("2021-06-21 00:00", "2021-12-19 17:40"),
                 },
             },
         },
@@ -203,27 +203,31 @@ class NestedDecisionExecutionWorkflow:
             },
         },
         "backtest": {
-            "start_time": "2020-09-20",
-            "end_time": "2021-05-20",
-            "account": 100000000,
+            "start_time": "2021-06-21 00:00",
+            "end_time": "2021-12-19 17:40",
+            "account": 10000,
             "exchange_kwargs": {
                 "freq": "1min",
-                "limit_threshold": 0.095,
+                "limit_threshold": 0.1,
                 "deal_price": "close",
-                "open_cost": 0.0005,
-                "close_cost": 0.0015,
-                "min_cost": 5,
+                "open_cost": 0.00001,
+                "close_cost": 0.00001,
+                'trade_unit': 0.1,
+                'min_cost': 5,
+                
             },
         },
     }
 
     def _init_qlib(self):
         """initialize qlib"""
-        provider_uri_day = "~/.qlib/qlib_data/cn_data"  # target_dir
-        GetData().qlib_data(target_dir=provider_uri_day, region=REG_CN, version="v2", exists_skip=True)
+        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/1dayData"  # target_dir
+        GetData().qlib_data(target_dir=provider_uri_day, region='cr', version="v2", exists_skip=True)
         provider_uri_1min = HIGH_FREQ_CONFIG.get("provider_uri")
+        print(provider_uri_1min)
+        provider_uri_1min = "C:/Users/gooda/Documents/GitHub/qlib/minData"
         GetData().qlib_data(
-            target_dir=provider_uri_1min, interval="1min", region=REG_CN, version="v2", exists_skip=True
+            target_dir=provider_uri_1min, interval="1min", region='cr', version="v2", exists_skip=True
         )
         provider_uri_map = {"1min": provider_uri_1min, "day": provider_uri_day}
         qlib.init(provider_uri=provider_uri_map, dataset_cache=None, expression_cache=None)
@@ -254,7 +258,7 @@ class NestedDecisionExecutionWorkflow:
             },
         }
         self.port_analysis_config["strategy"] = strategy_config
-        self.port_analysis_config["backtest"]["benchmark"] = self.benchmark
+        #self.port_analysis_config["backtest"]["benchmark"] = self.benchmark
 
         with R.start(experiment_name="backtest"):
             recorder = R.get_recorder()
@@ -309,7 +313,7 @@ class NestedDecisionExecutionWorkflow:
 
             acc_dict = {}
             for freq in ["30minute", "5minute", "1day"]:
-                acc_dict[freq] = rec.load_object(f"portfolio_analysis/report_normal_{freq}.pkl")[check_key]
+                acc_dict[freq] = rec.load_object(f"C:/Users/gooda/mlruns/3/bd74a8b02e8a4be7b5cd6a3bff5c228e/artifacts/portfolio_analysis/report_normal_{freq}.pkl")[check_key]
             acc_df = pd.DataFrame(acc_dict)
             acc_resam = acc_df.resample("1d").last().dropna()
             assert (acc_resam["30minute"] == acc_resam["1day"]).all()

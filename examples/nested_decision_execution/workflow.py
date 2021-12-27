@@ -111,7 +111,7 @@ from qlib.backtest import collect_data
 
 class NestedDecisionExecutionWorkflow:
     market = "all"
-    benchmark = "EOSBUSD"
+    benchmark = "BTCBUSD"
     data_handler_config = {
         "start_time": "2019-12-21 00:00",
         "end_time": "2021-12-19 17:40",
@@ -212,7 +212,7 @@ class NestedDecisionExecutionWorkflow:
                 "deal_price": "close",
                 "open_cost": 0.00001,
                 "close_cost": 0.00001,
-                'trade_unit': 0.1,
+                'trade_unit': 0.001,
                 'min_cost': 5,
                 
             },
@@ -221,11 +221,11 @@ class NestedDecisionExecutionWorkflow:
 
     def _init_qlib(self):
         """initialize qlib"""
-        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/1dayData"  # target_dir
+        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/dayData"  # target_dir
         GetData().qlib_data(target_dir=provider_uri_day, region='cr', version="v2", exists_skip=True)
         provider_uri_1min = HIGH_FREQ_CONFIG.get("provider_uri")
         print(provider_uri_1min)
-        provider_uri_1min = "C:/Users/gooda/Documents/GitHub/qlib/minData"
+        #provider_uri_1min = "C:/Users/gooda/Documents/GitHub/qlib/minData"
         GetData().qlib_data(
             target_dir=provider_uri_1min, interval="1min", region='cr', version="v2", exists_skip=True
         )
@@ -258,7 +258,7 @@ class NestedDecisionExecutionWorkflow:
             },
         }
         self.port_analysis_config["strategy"] = strategy_config
-        #self.port_analysis_config["backtest"]["benchmark"] = self.benchmark
+        self.port_analysis_config["backtest"]["benchmark"] = self.benchmark
 
         with R.start(experiment_name="backtest"):
             recorder = R.get_recorder()

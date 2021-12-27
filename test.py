@@ -9,7 +9,7 @@ from binance.client import Client
 
 
 outlist = []
-qqq = os.listdir('C:/Users/gooda/Documents/GitHub/qlib/binancedata')
+qqq = os.listdir('C:/Users/gooda/Documents/GitHub/qlib/minCSV')
 for qqi in qqq:
     qqi = qqi.split('.')[0]
     outlist.append(qqi)
@@ -86,7 +86,7 @@ def date_to_milliseconds(date_str):
 
 start = "21 Dec, 2019"
 end = "21 Dec, 2021"
-interval = Client.KLINE_INTERVAL_1MINUTE
+interval = Client.KLINE_INTERVAL_1DAY
 
 for token in currlist:
     klines = client.get_historical_klines_generator(token, interval, start, end)
@@ -94,7 +94,7 @@ for token in currlist:
 
 
 
-    with open('C:/Users/gooda/Documents/GitHub/qlib/binancedata/{}.csv'.format(token), 'w', newline='') as f:
+    with open('C:/Users/gooda/Documents/GitHub/qlib/minCSV/{}.csv'.format(token), 'w', newline='') as f:
         writerc = csv.writer(f)
         dic = ['date', 'open', 'high','low', 'close','volume','symbol','QAV','numberoftrades','takerbuyBAV','takerbuyQAV']
         writerc.writerow(dic)
@@ -102,8 +102,8 @@ for token in currlist:
         it = 0
         for a in klines:
             
-            dd = datetime.fromtimestamp(a[0]/1000.0,tz=pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
-            #dd = datetime.fromtimestamp(a[0]/1000.0,tz=pytz.utc).strftime("%Y-%m-%d")
+            #dd = datetime.fromtimestamp(a[0]/1000.0,tz=pytz.utc).strftime("%Y-%m-%d %H:%M:%S")
+            dd = datetime.fromtimestamp(a[0]/1000.0,tz=pytz.utc).strftime("%Y-%m-%d")
             b = [dd, a[1], a[2], a[3], a[4], a[5],token,a[7],a[8],a[9],a[10]]
             writerc.writerow(b)
             gct = gct + 1

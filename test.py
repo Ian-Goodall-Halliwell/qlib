@@ -9,7 +9,7 @@ from binance.client import Client
 
 
 outlist = []
-qqq = os.listdir('C:/Users/gooda/Documents/GitHub/qlib/minCSV')
+qqq = os.listdir('C:/Users/gooda/Documents/GitHub/qlib/days')
 for qqi in qqq:
     qqi = qqi.split('.')[0]
     outlist.append(qqi)
@@ -94,7 +94,7 @@ for token in currlist:
 
 
 
-    with open('C:/Users/gooda/Documents/GitHub/qlib/minCSV/{}.csv'.format(token), 'w', newline='') as f:
+    with open('C:/Users/gooda/Documents/GitHub/qlib/days/{}.csv'.format(token), 'w', newline='') as f:
         writerc = csv.writer(f)
         dic = ['date', 'open', 'high','low', 'close','volume','symbol','QAV','numberoftrades','takerbuyBAV','takerbuyQAV']
         writerc.writerow(dic)

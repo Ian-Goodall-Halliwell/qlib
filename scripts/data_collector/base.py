@@ -251,7 +251,7 @@ class Normalize:
         source_dir: [str, Path],
         target_dir: [str, Path],
         normalize_class: Type[BaseNormalize],
-        max_workers: int = 16,
+        max_workers: int = 4,
         date_field_name: str = "date",
         symbol_field_name: str = "symbol",
         **kwargs,
@@ -289,8 +289,11 @@ class Normalize:
 
     def _executor(self, file_path: Path):
         file_path = Path(file_path)
+        print(file_path)
         df = pd.read_csv(file_path)
+        print(file_path, 'exists')
         df = self._normalize_obj.normalize(df)
+        print(file_path, 'normed')
         if df is not None and not df.empty:
             if self._end_date is not None:
                 _mask = pd.to_datetime(df[self._date_field_name]) <= pd.Timestamp(self._end_date)

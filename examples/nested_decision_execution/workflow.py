@@ -210,9 +210,9 @@ class NestedDecisionExecutionWorkflow:
                 "freq": "1min",
                 "limit_threshold": 0.1,
                 "deal_price": "close",
-                "open_cost": 0.00001,
-                "close_cost": 0.00001,
-                'trade_unit': 0.001,
+                "open_cost": 0.1,
+                "close_cost": 0.1,
+                'trade_unit': 0.1,
                 'min_cost': 5,
                 
             },
@@ -221,14 +221,14 @@ class NestedDecisionExecutionWorkflow:
 
     def _init_qlib(self):
         """initialize qlib"""
-        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/dayData"  # target_dir
-        GetData().qlib_data(target_dir=provider_uri_day, region='cr', version="v2", exists_skip=True)
+        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/Day Normed"  # target_dir
+        #GetData().qlib_data(target_dir=provider_uri_day, version="v2", exists_skip=True)
         provider_uri_1min = HIGH_FREQ_CONFIG.get("provider_uri")
         print(provider_uri_1min)
         #provider_uri_1min = "C:/Users/gooda/Documents/GitHub/qlib/minData"
-        GetData().qlib_data(
-            target_dir=provider_uri_1min, interval="1min", region='cr', version="v2", exists_skip=True
-        )
+        # GetData().qlib_data(
+        #      target_dir=provider_uri_1min, interval="1min", region='cr', version="v2", exists_skip=True
+        # )
         provider_uri_map = {"1min": provider_uri_1min, "day": provider_uri_day}
         qlib.init(provider_uri=provider_uri_map, dataset_cache=None, expression_cache=None)
 
@@ -392,4 +392,4 @@ class NestedDecisionExecutionWorkflow:
 
 
 if __name__ == "__main__":
-    fire.Fire(NestedDecisionExecutionWorkflow)
+    fire.Fire(NestedDecisionExecutionWorkflow, command='collect_data')

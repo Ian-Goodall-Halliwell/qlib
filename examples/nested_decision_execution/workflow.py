@@ -205,14 +205,14 @@ class NestedDecisionExecutionWorkflow:
         "backtest": {
             "start_time": "2021-06-21 00:00",
             "end_time": "2021-12-19 17:40",
-            "account": 10000,
+            "account": 1000000,
             "exchange_kwargs": {
                 "freq": "1min",
-                "limit_threshold": 0.1,
+                "limit_threshold": None,
                 "deal_price": "close",
-                "open_cost": 0.1,
-                "close_cost": 0.1,
-                'trade_unit': 0.1,
+                "open_cost": 0.0001,
+                "close_cost": 0.0001,
+                'trade_unit': None,
                 'min_cost': 5,
                 
             },
@@ -221,7 +221,7 @@ class NestedDecisionExecutionWorkflow:
 
     def _init_qlib(self):
         """initialize qlib"""
-        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/Day Normed"  # target_dir
+        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/scripts/data_collector/crypto/ou1d"  # target_dir
         #GetData().qlib_data(target_dir=provider_uri_day, version="v2", exists_skip=True)
         provider_uri_1min = HIGH_FREQ_CONFIG.get("provider_uri")
         print(provider_uri_1min)

@@ -29,14 +29,14 @@ def date_to_milliseconds(date_str):
 cg = CoinGeckoAPI()
 tokid = {}
 aa = cg.get_coins_list(include_platform='false')
-for a in os.listdir("C:/Users/gooda/Documents/GitHub/qlib/output"):
+for a in os.listdir("C:/Users/gooda/Documents/GitHub/qlib/daysout"):
     b = a.split('.')[0].split('BUSD')[0].lower()
     for tokn in aa:
         if tokn['symbol'] == b:
             tokid[a] = tokn['id']
 
     #with open(os.path.join ("C:/Users/gooda/Documents/GitHub/qlib/binancedata_red", a), 'r', newline='') as read_csv:
-
+day = True
 
 def lookfor(list, ind):
     for a in list:
@@ -48,11 +48,11 @@ for curtok in tokid:
     initdate = 0
     cnt = 0
     it = 0
-    df = pd.read_csv(os.path.join("C:/Users/gooda/Documents/GitHub/qlib/output", curtok),skiprows=1,names=['date','open','high','low','close','volume','symbol','QAV','numberoftrades','takerbuyBAV','takerbuyQAV','factor'])
+    df = pd.read_csv(os.path.join("C:/Users/gooda/Documents/GitHub/qlib/daysout", curtok),skiprows=1,names=['date','open','high','low','close','volume','symbol','QAV','numberoftrades','takerbuyBAV','takerbuyQAV','factor','mcap'])
     df['factor']=df['factor'].fillna(1)
     lowtime = date_to_milliseconds(df.date.values[0])/1000
     try:
-        cval = cg.get_coin_market_chart_range_by_id(id=tokid[curtok], vs_currency="usd", from_timestamp=lowtime, to_timestamp=1640044800)          
+        cval = cg.get_coin_market_chart_range_by_id(id=tokid[curtok], vs_currency="usd", from_timestamp=lowtime, to_timestamp=1640144800)          
     except:                                                                                                                   
         print('error grabbing')
         time.sleep(60)
@@ -107,8 +107,11 @@ for curtok in tokid:
                 else:
                     mcpser.factor.values[tts] = 1
                     df.factor.values[en] = mcpser.factor.values[tts]
-            initdd = mcpser.date.values[tts]
             tts = tts + 1
+            try:
+                initdd = mcpser.date.values[tts]
+            except:
+                initdd = mcpser.date.values[tts-1]
         else:
             if df.factor.values[en] == 'inf' or 'NaN' or 0:
                 df.factor.values[en] = 1
@@ -137,7 +140,7 @@ for curtok in tokid:
     df = df[::-1]
     print(mcpser)
     print(df)
-    df.to_csv(os.path.join("C:/Users/gooda/Documents/GitHub/qlib/testingout", curtok))
+    df.to_csv(os.path.join("C:/Users/gooda/Documents/GitHub/qlib/fixed_day", curtok))
     # with open(os.path.join("C:/Users/gooda/Documents/GitHub/qlib/output", curtok)) as rc, open(os.path.join("C:/Users/gooda/Documents/GitHub/qlib/outd", curtok), 'w', newline='') as wc:
     #     for enum, line in enumerate(csv.DictReader(rc)):
             

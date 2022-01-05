@@ -1,4 +1,4 @@
-name: qlb
+name: qlorb
 channels:
   - conda-forge
   - defaults

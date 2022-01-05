@@ -9,7 +9,7 @@ __pycache__/
 _build
 build/
 dist/
-binancedata/
+data-download/
 
 *.pkl
 *.hd5

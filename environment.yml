@@ -1,0 +1,50 @@
+name: qlb
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - bzip2=1.0.8=he774522_0
+  - ca-certificates=2021.10.8=h5b45459_0
+  - certifi=2021.10.8=py310h5588dad_1
+  - fire=0.4.0=pyh44b312d_0
+  - libffi=3.4.2=h604cdb4_1
+  - openssl=1.1.1l=h8ffe710_0
+  - pip=21.2.4=py310haa95532_0
+  - python=3.10.0=h96c0403_3
+  - python_abi=3.10=2_cp310
+  - setuptools=58.0.4=py310haa95532_0
+  - six=1.16.0=pyh6c4a22f_0
+  - sqlite=3.37.0=h2bbff1b_0
+  - termcolor=1.1.0=py_2
+  - tk=8.6.11=h2bbff1b_0
+  - vc=14.2=h21ff451_1
+  - vs2015_runtime=14.27.29016=h5e58377_2
+  - wheel=0.37.0=pyhd3eb1b0_1
+  - wincertstore=0.2=py310haa95532_2
+  - xz=5.2.5=h62dcd97_0
+  - zlib=1.2.11=h8cc25b3_4
+  - pip:
+    - aiohttp==3.8.1
+    - aiosignal==1.2.0
+    - async-timeout==4.0.2
+    - attrs==21.4.0
+    - charset-normalizer==2.0.9
+    - dateparser==1.1.0
+    - frozenlist==1.2.0
+    - idna==3.3
+    - multidict==5.2.0
+    - pycoingecko==2.2.0
+    - python-binance==1.0.15
+    - python-dateutil==2.8.2
+    - pytz==2021.3
+    - pytz-deprecation-shim==0.1.0.post0
+    - qlib==0.0.2.dev20
+    - regex==2021.11.10
+    - requests==2.26.0
+    - tzdata==2021.5
+    - tzlocal==4.1
+    - ujson==5.1.0
+    - urllib3==1.26.7
+    - websockets==9.1
+    - yarl==1.7.2
+prefix: C:\Users\Ian\anaconda3\envs\qlb

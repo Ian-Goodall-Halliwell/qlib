@@ -113,9 +113,9 @@ class NestedDecisionExecutionWorkflow:
     market = "all"
     benchmark = "BTCBUSD"
     data_handler_config = {
-        "start_time": "2019-12-21 00:00",
-        "end_time": "2021-12-19 17:40",
-        "fit_start_time": "2019-12-21 00:00",
+        "start_time": "2017-08-17 04:00",
+        "end_time": "2022-01-04 23:59",
+        "fit_start_time": "2017-08-17 04:00",
         "fit_end_time": "2020-12-21 00:00",
         "instruments": market,
     }
@@ -146,9 +146,9 @@ class NestedDecisionExecutionWorkflow:
                     "kwargs": data_handler_config,
                 },
                 "segments": {
-                    "train": ("2019-12-21 00:00", "2020-12-21 00:00"),
+                    "train": ("2017-08-17 04:00", "2020-12-21 00:00"),
                     "valid": ("2020-12-21 00:00", "2021-06-21 00:00"),
-                    "test": ("2021-06-21 00:00", "2021-12-19 17:40"),
+                    "test": ("2021-06-21 00:00", "2022-01-04 23:59"),
                 },
             },
         },
@@ -203,8 +203,8 @@ class NestedDecisionExecutionWorkflow:
             },
         },
         "backtest": {
-            "start_time": "2021-06-21 00:00",
-            "end_time": "2021-12-19 17:40",
+            "start_time": "2017-08-17 04:00",
+            "end_time": "2022-01-04 23:59",
             "account": 1000000,
             "exchange_kwargs": {
                 "freq": "1min",
@@ -221,9 +221,10 @@ class NestedDecisionExecutionWorkflow:
 
     def _init_qlib(self):
         """initialize qlib"""
-        provider_uri_day = "C:/Users/gooda/Documents/GitHub/qlib/scripts/data_collector/crypto/ou1d"  # target_dir
+        provider_uri_day = "F:/q-bin/data-download/day-processed"  # target_dir
         #GetData().qlib_data(target_dir=provider_uri_day, version="v2", exists_skip=True)
-        provider_uri_1min = HIGH_FREQ_CONFIG.get("provider_uri")
+        #provider_uri_1min = HIGH_FREQ_CONFIG.get("provider_uri")
+        provider_uri_1min = "F:/q-bin/data-download/1min-processed"
         print(provider_uri_1min)
         #provider_uri_1min = "C:/Users/gooda/Documents/GitHub/qlib/minData"
         # GetData().qlib_data(
@@ -392,4 +393,4 @@ class NestedDecisionExecutionWorkflow:
 
 
 if __name__ == "__main__":
-    fire.Fire(NestedDecisionExecutionWorkflow, command='collect_data')
+    fire.Fire(NestedDecisionExecutionWorkflow)
